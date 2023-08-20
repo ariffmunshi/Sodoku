@@ -13,6 +13,7 @@ const GridItem = ({ value }: { value: NullableNum }): JSX.Element => {
             className="grid-item"
             defaultValue={value ?? undefined}
             data-testid="grid-item"
+            disabled={value !== null}
         />
     );
 };
