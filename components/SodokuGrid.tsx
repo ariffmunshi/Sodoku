@@ -2,8 +2,11 @@
 
 import { useEffect, useState, Fragment } from 'react';
 import GridItem from './GridItem';
+import Sodoku from '@/libraries/Sodoku';
 
 export type GridInput = number | '';
+
+const sodoku = new Sodoku();
 
 /**
  * Renders a Sudoku grid.
@@ -17,31 +20,10 @@ const SodokuGrid = () => {
     const [solutionGrid, setSolutionGrid] = useState<GridInput[][]>([]);
 
     useEffect(() => {
-        const grid = convertToGrid(puzzle);
+        const grid = sodoku.convertToGrid(puzzle);
         setInitialGrid(JSON.parse(JSON.stringify(grid)));
         setSolutionGrid(grid);
     }, []);
-
-    /**
-     * Converts a puzzle string into a grid of numbers if .
-     *
-     * @param puzzle - The puzzle string to convert.
-     *
-     * @returns {GridInput[][]} - The 2D grid representation of the puzzle.
-     */
-    const convertToGrid = (puzzle: string): GridInput[][] => {
-        const grid: GridInput[][] = [];
-        for (let i = 0; i < 9; i++) {
-            const row: GridInput[] = [];
-            for (let j = 0; j < 9; j++) {
-                puzzle[i * 9 + j] === '.'
-                    ? row.push('')
-                    : row.push(+puzzle[i * 9 + j]);
-            }
-            grid.push(row);
-        }
-        return grid;
-    };
 
     return (
         <div className="grid grid-cols-9">
