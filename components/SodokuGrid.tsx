@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import GridItem from './GridItem';
 
-export type NullableNum = number | null;
+export type GridInput = number | '';
 
 /**
  * Renders a Sudoku grid.
@@ -13,26 +13,26 @@ export type NullableNum = number | null;
 const SodokuGrid = () => {
     const puzzle =
         '52...6.........7.13...........4..8..6......5...........418.........3..2...87.....';
-    const [grid, setGrid] = useState<NullableNum[][]>([]);
+    const [grid, setGrid] = useState<GridInput[][]>([]);
 
     useEffect(() => {
         setGrid(convertToGrid(puzzle));
     }, []);
 
     /**
-     * Converts a puzzle string into a grid of nullable numbers.
+     * Converts a puzzle string into a grid of numbers if .
      *
      * @param puzzle - The puzzle string to convert.
      *
-     * @returns {NullableNum[][]} - The 2D grid representation of the puzzle.
+     * @returns {GridInput[][]} - The 2D grid representation of the puzzle.
      */
-    const convertToGrid = (puzzle: string): NullableNum[][] => {
-        const grid: NullableNum[][] = [];
+    const convertToGrid = (puzzle: string): GridInput[][] => {
+        const grid: GridInput[][] = [];
         for (let i = 0; i < 9; i++) {
-            const row: NullableNum[] = [];
+            const row: GridInput[] = [];
             for (let j = 0; j < 9; j++) {
                 puzzle[i * 9 + j] === '.'
-                    ? row.push(null)
+                    ? row.push('')
                     : row.push(+puzzle[i * 9 + j]);
             }
             grid.push(row);
@@ -42,13 +42,13 @@ const SodokuGrid = () => {
 
     return (
         <div className="grid grid-cols-9">
-            {grid.map((row: NullableNum[], i: number) => {
+            {grid.map((row: GridInput[], i: number) => {
                 return (
-                    <>
-                        {row.map((value: number | null, j: number) => {
+                    <Fragment key={i}>
+                        {row.map((value: GridInput, j: number) => {
                             return <GridItem key={i + '-' + j} value={value} />;
                         })}
-                    </>
+                    </Fragment>
                 );
             })}
         </div>
