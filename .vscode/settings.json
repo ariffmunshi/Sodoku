@@ -2,5 +2,9 @@
     "cSpell.words": [
         "Sodoku",
         "tailwindcss"
-    ]
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "editor.formatOnSave": true
 }
