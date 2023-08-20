@@ -13,10 +13,13 @@ export type GridInput = number | '';
 const SodokuGrid = () => {
     const puzzle =
         '52...6.........7.13...........4..8..6......5...........418.........3..2...87.....';
-    const [grid, setGrid] = useState<GridInput[][]>([]);
+    const [initialGrid, setInitialGrid] = useState<GridInput[][]>([]);
+    const [solutionGrid, setSolutionGrid] = useState<GridInput[][]>([]);
 
     useEffect(() => {
-        setGrid(convertToGrid(puzzle));
+        const grid = convertToGrid(puzzle);
+        setInitialGrid(JSON.parse(JSON.stringify(grid)));
+        setSolutionGrid(grid);
     }, []);
 
     /**
@@ -42,11 +45,23 @@ const SodokuGrid = () => {
 
     return (
         <div className="grid grid-cols-9">
-            {grid.map((row: GridInput[], i: number) => {
+            {solutionGrid.map((row: GridInput[], i: number) => {
                 return (
                     <Fragment key={i}>
                         {row.map((value: GridInput, j: number) => {
-                            return <GridItem key={i + '-' + j} value={value} />;
+                            return (
+                                <GridItem
+                                    key={i + '-' + j}
+                                    row={i}
+                                    column={j}
+                                    value={value}
+                                    disabled={
+                                        value !== '' &&
+                                        value === initialGrid[i][j]
+                                    }
+                                    setSolutionGrid={setSolutionGrid}
+                                />
+                            );
                         })}
                     </Fragment>
                 );

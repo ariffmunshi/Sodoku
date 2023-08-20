@@ -10,7 +10,7 @@ describe('Sodoku Grid Component', () => {
         expect(gridItems.length).toBe(81);
     });
 
-    it('disables grid items with numbers', () => {
+    it('disables grid items with initial numbers', () => {
         render(<SodokuGrid />);
         const gridItems = screen.getAllByTestId('grid-item');
         gridItems.forEach((item) => {
