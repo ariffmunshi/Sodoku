@@ -1,15 +1,17 @@
+import { NullableNum } from './SodokuGrid';
+
 /**
  * Renders a grid item with an input field.
  *
- * @param {number} value - The value to be displayed in the input field.
+ * @param value - The value to be displayed in grid item, either number or null
  * @return {JSX.Element} - The rendered grid item.
  */
-const GridItem = ({ value }: { value: number }) => {
+const GridItem = ({ value }: { value: NullableNum }): JSX.Element => {
     return (
         <input
             type="text"
             className="grid-item"
-            defaultValue={value}
+            defaultValue={value ?? undefined}
             data-testid="grid-item"
         />
     );
