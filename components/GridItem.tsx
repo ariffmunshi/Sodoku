@@ -19,7 +19,7 @@ const GridItem = ({
     column: number;
     value: number;
     disabled: boolean;
-    setSolutionGrid: (grid: number[][]) => number[][];
+    setSolutionGrid: (grid: number[][]) => void;
 }): JSX.Element => {
     const [inputValue, setInputValue] = useState(value);
 
@@ -27,19 +27,19 @@ const GridItem = ({
         const input = parseInt(event.target.value);
         if (input >= 1 && input <= 9) {
             setInputValue(input);
-            setSolutionGrid((grid: number[][]): number[][] => {
-                const updatedGrid = [...grid];
-                updatedGrid[row][column] = input;
-                return updatedGrid;
-            });
         } else {
             setInputValue(0);
         }
+        setSolutionGrid((grid: number[][]): number[][] => {
+            const updatedGrid = grid.map((row) => [...row]);
+            updatedGrid[row][column] = input || 0;
+            return updatedGrid;
+        });
     };
     return (
         <input
             type="text"
-            pattern="[0-9]"
+            pattern="[1-9]"
             className="grid-item"
             value={inputValue !== 0 ? inputValue : ''}
             role="input-item"
