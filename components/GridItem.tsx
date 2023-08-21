@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { GridInput } from './SodokuGrid';
 
 /**
  * Renders a grid item with an input field.
@@ -18,9 +17,9 @@ const GridItem = ({
 }: {
     row: number;
     column: number;
-    value: GridInput;
+    value: number;
     disabled: boolean;
-    setSolutionGrid: (grid: GridInput[][]) => void;
+    setSolutionGrid: (grid: number[][]) => number[][];
 }): JSX.Element => {
     const [inputValue, setInputValue] = useState(value);
 
@@ -28,20 +27,21 @@ const GridItem = ({
         const input = parseInt(event.target.value);
         if (input >= 1 && input <= 9) {
             setInputValue(input);
-            setSolutionGrid((grid: GridInput[][]): GridInput[][] => {
+            setSolutionGrid((grid: number[][]): number[][] => {
                 const updatedGrid = [...grid];
                 updatedGrid[row][column] = input;
                 return updatedGrid;
             });
         } else {
-            setInputValue('');
+            setInputValue(0);
         }
     };
     return (
         <input
             type="text"
+            pattern="[0-9]"
             className="grid-item"
-            value={inputValue}
+            value={inputValue !== 0 ? inputValue : ''}
             role="input-item"
             disabled={disabled}
             onChange={handleChange}

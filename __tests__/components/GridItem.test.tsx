@@ -9,12 +9,12 @@ describe('Grid Item Component', () => {
             <GridItem
                 row={0}
                 column={0}
-                value=""
+                value={0}
                 disabled={false}
                 setSolutionGrid={mockFunction}
             />
         );
-        const gridItem = screen.getByTestId('grid-item');
+        const gridItem: HTMLInputElement = screen.getByRole('input-item');
         fireEvent.change(gridItem, { target: { value: 9 } });
         expect(gridItem.value).toBe('9');
         fireEvent.change(gridItem, { target: { value: 11 } });
@@ -29,12 +29,12 @@ describe('Grid Item Component', () => {
             <GridItem
                 row={0}
                 column={0}
-                value=""
+                value={0}
                 disabled={false}
                 setSolutionGrid={mockFunction}
             />
         );
-        const gridItem = screen.getByTestId('grid-item');
+        const gridItem: HTMLInputElement = screen.getByRole('input-item');
         fireEvent.change(gridItem, { target: { value: 9 } });
         expect(gridItem.value).toBe('9');
         expect(gridItem).not.toHaveAttribute('disabled');
