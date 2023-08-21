@@ -42,7 +42,7 @@ const GridItem = ({
             type="text"
             className="grid-item"
             value={inputValue}
-            data-testid="grid-item"
+            role="input-item"
             disabled={disabled}
             onChange={handleChange}
         />
