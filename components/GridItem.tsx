@@ -10,16 +10,20 @@ import { useState, useEffect } from 'react';
  */
 const GridItem = ({
     row,
-    column,
+    col,
     value,
     disabled,
-    setSolutionGrid,
+    setActiveGridItem,
 }: {
     row: number;
-    column: number;
+    col: number;
     value: number;
     disabled: boolean;
-    setSolutionGrid: (grid: number[][]) => void;
+    setActiveGridItem: (gridItem: {
+        row: number;
+        col: number;
+        value: number;
+    }) => void;
 }): JSX.Element => {
     const [inputValue, setInputValue] = useState(value);
 
@@ -36,15 +40,14 @@ const GridItem = ({
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const input = parseInt(event.target.value);
         if (input >= 1 && input <= 9) {
+            // sends input to parent if valid
+            setActiveGridItem({ row, col, value: input });
             setInputValue(input);
         } else {
+            // sends 0 for all invalid inputs including empty string
+            setActiveGridItem({ row, col, value: 0 });
             setInputValue(0);
         }
-        setSolutionGrid((grid: number[][]): number[][] => {
-            const updatedGrid = grid.map((row) => [...row]);
-            updatedGrid[row][column] = input || 0;
-            return updatedGrid;
-        });
     };
     return (
         <input

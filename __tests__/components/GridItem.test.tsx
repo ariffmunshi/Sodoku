@@ -8,10 +8,10 @@ describe('Grid Item Component', () => {
         render(
             <GridItem
                 row={0}
-                column={0}
+                col={0}
                 value={0}
                 disabled={false}
-                setSolutionGrid={mockFunction}
+                setActiveGridItem={mockFunction}
             />
         );
         const gridItem: HTMLInputElement = screen.getByRole('input-item');
@@ -28,10 +28,10 @@ describe('Grid Item Component', () => {
         render(
             <GridItem
                 row={0}
-                column={0}
+                col={0}
                 value={0}
                 disabled={false}
-                setSolutionGrid={mockFunction}
+                setActiveGridItem={mockFunction}
             />
         );
         const gridItem: HTMLInputElement = screen.getByRole('input-item');
