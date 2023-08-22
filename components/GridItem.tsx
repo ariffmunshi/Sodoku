@@ -27,6 +27,12 @@ const GridItem = ({
         setInputValue(value);
     }, [value]);
 
+    /**
+     * Handles the change event of the input element.
+     *
+     * Allows only inputs 1-9, sets as 0 other wise
+     * Updates state with new input value
+     */
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const input = parseInt(event.target.value);
         if (input >= 1 && input <= 9) {

@@ -26,8 +26,12 @@ const SodokuGrid = () => {
         setSolutionGrid(gridCopy);
     }, []);
 
-    useEffect(() => {}, [solutionGrid]);
-
+    /**
+     * Resets the grid to its initial state.
+     *
+     * Copies original grid to solution grid.
+     * @return This function does not return any value.
+     */
     const resetGrid = (): void => {
         const initial = initialGrid.map((row) => [...row]);
         setSolutionGrid(initial);
