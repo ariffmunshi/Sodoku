@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 /**
  * Renders a grid item with an input field.
@@ -22,6 +22,10 @@ const GridItem = ({
     setSolutionGrid: (grid: number[][]) => void;
 }): JSX.Element => {
     const [inputValue, setInputValue] = useState(value);
+
+    useEffect(() => {
+        setInputValue(value);
+    }, [value]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const input = parseInt(event.target.value);

@@ -21,9 +21,25 @@ const SodokuGrid = () => {
         // Converts puzzle string to 2D array grid
         const grid = sodoku.convertToGrid(puzzleString);
         // Deep copy generated grid to cache original grid
-        setInitialGrid(JSON.parse(JSON.stringify(grid)));
-        setSolutionGrid(grid);
+        const gridCopy = grid.map((row) => [...row]);
+        setInitialGrid(grid);
+        setSolutionGrid(gridCopy);
     }, []);
+
+    useEffect(() => {}, [solutionGrid]);
+
+    const resetGrid = (): void => {
+        const initial = initialGrid.map((row) => [...row]);
+        setSolutionGrid(initial);
+    };
+
+    const solvePuzzle = (): void => {
+        // Add call to solving function
+    };
+
+    const checkAnswer = (): void => {
+        // Add call to check answer function
+    };
 
     return (
         <>
@@ -51,6 +67,11 @@ const SodokuGrid = () => {
                     );
                 })}
             </div>
+            <button role="reset-button" onClick={resetGrid}>
+                Reset Grid
+            </button>
+            <button onClick={solvePuzzle}>Solve</button>
+            <button onClick={checkAnswer}>Check Answer</button>
         </>
     );
 };

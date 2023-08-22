@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SodokuGrid from '@/components/SodokuGrid';
 
@@ -27,5 +27,19 @@ describe('Sodoku Grid Component', () => {
                 expect(item).not.toBeDisabled();
             }
         });
+    });
+
+    it('should reset grid on reset button click', () => {
+        render(<SodokuGrid />);
+        const gridInputs = screen.getAllByDisplayValue('');
+        const resetButton = screen.getByRole('reset-button');
+        fireEvent.change(gridInputs[0], {
+            target: {
+                value: '9',
+            },
+        });
+        expect(gridInputs[0]).toHaveValue('9');
+        fireEvent.click(resetButton);
+        expect(gridInputs[0]).toHaveValue('');
     });
 });
