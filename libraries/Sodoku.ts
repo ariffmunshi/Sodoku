@@ -26,6 +26,24 @@ class Sodoku {
     };
 
     /**
+     * Checks if a Sudoku grid is valid.
+     *
+     * @param grid - The Sudoku grid to check.
+     * @returns True if the Sudoku grid is valid, false otherwise.
+     */
+    isValidGrid(grid: SodokuGrid): boolean {
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                const num = grid[row][col];
+                if (num !== 0 && !this.isValidMove(grid, row, col, num)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Checks if a number can be placed in a specific cell of the Sudoku grid.
      * @param grid - The Sudoku grid.
      * @param row - The row index of the cell.

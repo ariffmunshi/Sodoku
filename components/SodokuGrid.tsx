@@ -65,6 +65,7 @@ const SodokuGrid = () => {
 
     const checkAnswer = (): void => {
         // Add call to check answer function
+        console.log(sodoku.isValidGrid(solutionGrid));
     };
 
     return (
