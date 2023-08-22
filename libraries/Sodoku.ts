@@ -139,6 +139,46 @@ class Sodoku {
         }
         return true;
     }
+
+    /**
+     * Solves a Sudoku grid.
+     * @param grid - The Sudoku grid to solve.
+     * @returns The solved Sudoku grid, or null if no solution exists.
+     */
+    solveSudoku(grid: SudokuGrid): SudokuGrid | null {
+        const [row, col] = this.findEmptyCell(grid);
+        if (row === -1) {
+            return grid;
+        }
+
+        for (let num = 1; num <= 9; num++) {
+            if (this.isValidMove(grid, row, col, num)) {
+                grid[row][col] = num;
+                if (this.solveSudoku(grid)) {
+                    return grid;
+                }
+                grid[row][col] = 0;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds the next empty cell in the Sudoku grid.
+     * @param grid - The Sudoku grid to search.
+     * @returns The row and column indices of the next empty cell, or [-1, -1] if no empty cell is found.
+     */
+    findEmptyCell(grid: SudokuGrid): [number, number] {
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                if (grid[row][col] === 0) {
+                    return [row, col];
+                }
+            }
+        }
+        return [-1, -1];
+    }
 }
 
 export default Sodoku;

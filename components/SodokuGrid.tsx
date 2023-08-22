@@ -13,7 +13,7 @@ const sodoku = new Sodoku();
  */
 const SodokuGrid = () => {
     const puzzleString =
-        '837629145.4.318..2921574368.54186239163...8.7289.53416..28.56.1...241..3318967524';
+        '52...6.........7.13...........4..8..6......5...........418.........3..2...87.....';
     const [initialGrid, setInitialGrid] = useState<number[][]>([]);
     const [solutionGrid, setSolutionGrid] = useState<number[][]>([]);
     const [activeGridItem, setActiveGridItem] = useState<{
@@ -61,6 +61,9 @@ const SodokuGrid = () => {
 
     const solvePuzzle = (): void => {
         // Add call to solving function
+        const puzzleGrid = initialGrid.map((row) => [...row]);
+        const solvedGrid = sodoku.solveSudoku(puzzleGrid);
+        setSolutionGrid(solvedGrid);
     };
 
     const checkAnswer = (): void => {
