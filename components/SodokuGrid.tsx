@@ -73,7 +73,7 @@ const SodokuGrid = (): JSX.Element => {
      * Copies original grid to solution grid.
      * @return This function does not return any value.
      */
-    const resetGrid = (): void => {
+    const resetPuzzle = (): void => {
         const initial = initialGrid.map((row) => [...row]);
         setSolutionGrid(initial);
     };
@@ -88,6 +88,10 @@ const SodokuGrid = (): JSX.Element => {
     const checkAnswer = (): void => {
         // Add call to check answer function
         console.log(sodoku.isValidGrid(solutionGrid));
+    };
+
+    const getPuzzle = (): void => {
+        initialisePuzzle();
     };
 
     return (
@@ -117,11 +121,12 @@ const SodokuGrid = (): JSX.Element => {
                     );
                 })}
             </div>
-            <button role="reset-button" onClick={resetGrid}>
-                Reset Grid
+            <button role="reset-button" onClick={resetPuzzle}>
+                Reset Puzzle
             </button>
             <button onClick={solvePuzzle}>Solve</button>
             <button onClick={checkAnswer}>Check Answer</button>
+            <button onClick={getPuzzle}>New Puzzle</button>
         </>
     );
 };
