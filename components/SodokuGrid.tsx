@@ -2,18 +2,16 @@
 
 import { useEffect, useState, Fragment } from 'react';
 import GridItem from './GridItem';
-import Sodoku from '@/libraries/Sodoku';
+import Sodoku from '@/lib/Sodoku';
 
 const sodoku = new Sodoku();
 
 /**
  * Renders a Sudoku grid.
  *
- * @return {JSX.Element} The rendered Sudoku grid.
+ * @return  The rendered Sudoku grid.
  */
-const SodokuGrid = () => {
-    const puzzleString =
-        '52...6.........7.13...........4..8..6......5...........418.........3..2...87.....';
+const SodokuGrid = (): JSX.Element => {
     const [initialGrid, setInitialGrid] = useState<number[][]>([]);
     const [solutionGrid, setSolutionGrid] = useState<number[][]>([]);
     const [activeGridItem, setActiveGridItem] = useState<{
@@ -22,13 +20,34 @@ const SodokuGrid = () => {
         value: number;
     }>();
 
-    useEffect(() => {
+    /**
+     * Fetches a sodoku puzzle from the server.
+     *
+     * @return A promise that resolves once the puzzle is fetched and the grid is initialized.
+     */
+    const fetchSodoku = async (): Promise<string> => {
+        const response: Response = await fetch('/api/puzzles');
+        const data: { puzzle: string } = await response.json();
+        return data.puzzle;
+    };
+
+    /**
+     * Calls function to fetch a sodoku puzzle from the server and initializes the grid.
+     *
+     * @return A promise that resolves once the puzzle is fetched and the grid is initialized.
+     */
+    const initialisePuzzle = async (): Promise<void> => {
+        const puzzle: string = await fetchSodoku();
         // Converts puzzle string to 2D array grid
-        const grid = sodoku.convertToGrid(puzzleString);
+        const grid: number[][] = sodoku.convertToGrid(puzzle);
         // Deep copy generated grid to cache original grid
-        const gridCopy = grid.map((row) => [...row]);
+        const gridCopy: number[][] = grid.map((row) => [...row]);
         setInitialGrid(grid);
         setSolutionGrid(gridCopy);
+    };
+    // Fetch puzzle string
+    useEffect(() => {
+        initialisePuzzle();
     }, []);
 
     useEffect(() => {
