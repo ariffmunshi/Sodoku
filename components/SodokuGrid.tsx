@@ -104,8 +104,13 @@ const SodokuGrid = (): JSX.Element => {
         // Add call to solving function
         const puzzleGrid = initialGrid.map((row) => [...row]);
         const solvedGrid = sodoku.solveSodoku(puzzleGrid);
-        updateMessage('There you go!');
-        setSolutionGrid(solvedGrid);
+        if (solvedGrid) {
+            updateMessage('There you go!');
+            setSolutionGrid(solvedGrid);
+        } else {
+            updateMessage('Invalid grid');
+            return;
+        }
     };
 
     /**
