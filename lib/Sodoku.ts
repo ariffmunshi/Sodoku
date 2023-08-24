@@ -11,8 +11,8 @@ class Sodoku {
      *
      * @returns The 2D grid representation of the puzzle.
      */
-    convertToGrid = (puzzle: string): number[][] => {
-        const grid: number[][] = [];
+    convertToGrid = (puzzle: string): SodokuGrid => {
+        const grid: SodokuGrid = [];
         for (let rowIndex = 0; rowIndex < 9; rowIndex++) {
             const row: number[] = [];
             for (let columnIndex = 0; columnIndex < 9; columnIndex++) {
@@ -26,10 +26,10 @@ class Sodoku {
     };
 
     /**
-     * Checks if a Sudoku grid is valid.
+     * Checks if a Sodoku grid is valid.
      *
-     * @param grid - The Sudoku grid to check.
-     * @returns True if the Sudoku grid is valid, false otherwise.
+     * @param grid - The Sodoku grid to check.
+     * @returns True if the Sodoku grid is valid, false otherwise.
      */
     isValidGrid(grid: SodokuGrid): boolean {
         for (let row = 0; row < 9; row++) {
@@ -44,8 +44,8 @@ class Sodoku {
     }
 
     /**
-     * Checks if a number can be placed in a specific cell of the Sudoku grid.
-     * @param grid - The Sudoku grid.
+     * Checks if a number can be placed in a specific cell of the Sodoku grid.
+     * @param grid - The Sodoku grid.
      * @param row - The row index of the cell.
      * @param col - The column index of the cell.
      * @param num - The number to check.
@@ -65,8 +65,8 @@ class Sodoku {
     }
 
     /**
-     * Checks if a row in the Sudoku grid is valid.
-     * @param grid - The Sudoku grid.
+     * Checks if a row in the Sodoku grid is valid.
+     * @param grid - The Sodoku grid.
      * @param row - The row index to check.
      * @param col - The col index to check
      * @param num - The number to check.
@@ -87,8 +87,8 @@ class Sodoku {
     }
 
     /**
-     * Checks if a column in the Sudoku grid is valid.
-     * @param grid - The Sudoku grid.
+     * Checks if a column in the Sodoku grid is valid.
+     * @param grid - The Sodoku grid.
      * @param row - The row index to check.
      * @param col - The column index to check.
      * @param num - The number to check.
@@ -109,15 +109,15 @@ class Sodoku {
     }
 
     /**
-     * Checks if a 3x3 box in the Sudoku grid is valid.
-     * @param grid - The Sudoku grid.
+     * Checks if a 3x3 box in the Sodoku grid is valid.
+     * @param grid - The Sodoku grid.
      * @param row - The row index to check.
      * @param col - The column index to check.
      * @param num - The number to check.
      * @returns True if the box is valid, false otherwise.
      */
     isBoxValid(
-        grid: SudokuGrid,
+        grid: SodokuGrid,
         row: number,
         col: number,
         num: number
@@ -141,11 +141,11 @@ class Sodoku {
     }
 
     /**
-     * Solves a Sudoku grid.
-     * @param grid - The Sudoku grid to solve.
-     * @returns The solved Sudoku grid, or null if no solution exists.
+     * Solves a Sodoku grid.
+     * @param grid - The Sodoku grid to solve.
+     * @returns The solved Sodoku grid, or null if no solution exists.
      */
-    solveSudoku(grid: SudokuGrid): SudokuGrid | null {
+    solveSodoku(grid: SodokuGrid): SodokuGrid | null {
         const [row, col] = this.findEmptyCell(grid);
         if (row === -1) {
             return grid;
@@ -154,7 +154,7 @@ class Sodoku {
         for (let num = 1; num <= 9; num++) {
             if (this.isValidMove(grid, row, col, num)) {
                 grid[row][col] = num;
-                if (this.solveSudoku(grid)) {
+                if (this.solveSodoku(grid)) {
                     return grid;
                 }
                 grid[row][col] = 0;
@@ -165,11 +165,11 @@ class Sodoku {
     }
 
     /**
-     * Finds the next empty cell in the Sudoku grid.
-     * @param grid - The Sudoku grid to search.
+     * Finds the next empty cell in the Sodoku grid.
+     * @param grid - The Sodoku grid to search.
      * @returns The row and column indices of the next empty cell, or [-1, -1] if no empty cell is found.
      */
-    findEmptyCell(grid: SudokuGrid): [number, number] {
+    findEmptyCell(grid: SodokuGrid): [number, number] {
         for (let row = 0; row < 9; row++) {
             for (let col = 0; col < 9; col++) {
                 if (grid[row][col] === 0) {

@@ -85,7 +85,7 @@ describe('Sodoku', () => {
                 [7, 6, 5, 1, 3, 4, 9, 2, 8],
                 [2, 3, 8, 7, 6, 9, 1, 4, 5],
             ];
-            const result = sodoku.solveSudoku(grid);
+            const result = sodoku.solveSodoku(grid);
             expect(result).toEqual(solution);
         });
     });

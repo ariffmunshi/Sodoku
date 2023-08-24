@@ -2,18 +2,18 @@
 
 import { useEffect, useState, Fragment } from 'react';
 import GridItem from './GridItem';
-import Sodoku from '@/lib/Sodoku';
+import Sodoku, { SodokuGrid } from '@/lib/Sodoku';
 
 const sodoku = new Sodoku();
 
 /**
- * Renders a Sudoku grid.
+ * Renders a Sodoku grid.
  *
- * @return  The rendered Sudoku grid.
+ * @return  The rendered Sodoku grid.
  */
 const SodokuGrid = (): JSX.Element => {
-    const [initialGrid, setInitialGrid] = useState<number[][]>([]);
-    const [solutionGrid, setSolutionGrid] = useState<number[][]>([]);
+    const [initialGrid, setInitialGrid] = useState<SodokuGrid>([]);
+    const [solutionGrid, setSolutionGrid] = useState<SodokuGrid>([]);
     const [activeGridItem, setActiveGridItem] = useState<{
         row: number;
         col: number;
@@ -39,9 +39,9 @@ const SodokuGrid = (): JSX.Element => {
     const initialisePuzzle = async (): Promise<void> => {
         const puzzle: string = await fetchSodoku();
         // Converts puzzle string to 2D array grid
-        const grid: number[][] = sodoku.convertToGrid(puzzle);
+        const grid: SodokuGrid = sodoku.convertToGrid(puzzle);
         // Deep copy generated grid to cache original grid
-        const gridCopy: number[][] = grid.map((row) => [...row]);
+        const gridCopy: SodokuGrid = grid.map((row) => [...row]);
         setInitialGrid(grid);
         setSolutionGrid(gridCopy);
     };
@@ -60,7 +60,7 @@ const SodokuGrid = (): JSX.Element => {
         } else {
             console.log(false);
         }
-        setSolutionGrid((grid: number[][]): number[][] => {
+        setSolutionGrid((grid: SodokuGrid): SodokuGrid => {
             const updatedGrid = grid.map((row) => [...row]);
             updatedGrid[row][col] = value || 0;
             return updatedGrid;
@@ -86,7 +86,7 @@ const SodokuGrid = (): JSX.Element => {
     const solvePuzzle = (): void => {
         // Add call to solving function
         const puzzleGrid = initialGrid.map((row) => [...row]);
-        const solvedGrid = sodoku.solveSudoku(puzzleGrid);
+        const solvedGrid = sodoku.solveSodoku(puzzleGrid);
         setSolutionGrid(solvedGrid);
     };
 
