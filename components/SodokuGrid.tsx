@@ -60,9 +60,14 @@ const SodokuGrid = (): JSX.Element => {
             activeGridItem;
         // Runs check for valid input if value is not 0
         if (value && sodoku.isValidMove(solutionGrid, row, col, value)) {
+            updateMessage('Keep it up!');
             setInvalidIndex([]);
-        } else {
+        } else if (value) {
+            updateMessage('Invalid move!');
             setInvalidIndex([row, col]);
+        } else {
+            updateMessage('');
+            setInvalidIndex([]);
         }
         setSolutionGrid((grid: SodokuGrid): SodokuGrid => {
             const updatedGrid = grid.map((row) => [...row]);
