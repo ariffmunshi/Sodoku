@@ -11,6 +11,7 @@ describe('Grid Item Component', () => {
                 col={0}
                 value={0}
                 disabled={false}
+                isInvalid={false}
                 setActiveGridItem={mockFunction}
             />
         );
@@ -31,6 +32,7 @@ describe('Grid Item Component', () => {
                 col={0}
                 value={0}
                 disabled={false}
+                isInvalid={false}
                 setActiveGridItem={mockFunction}
             />
         );

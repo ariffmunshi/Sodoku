@@ -114,6 +114,7 @@ describe('Sodoku Grid Component', () => {
         });
         const checkAnswer = screen.getByRole('check-answer');
         fireEvent.click(checkAnswer);
+        expect(gridInputs[0]).toHaveClass('bg-rose-200');
         expect(message).toHaveTextContent("Something's wrong!");
     });
 });
