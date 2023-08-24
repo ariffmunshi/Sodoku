@@ -13,12 +13,14 @@ const GridItem = ({
     col,
     value,
     disabled,
+    isInvalid,
     setActiveGridItem,
 }: {
     row: number;
     col: number;
     value: number;
     disabled: boolean;
+    isInvalid: boolean;
     setActiveGridItem: (gridItem: {
         row: number;
         col: number;
@@ -57,6 +59,7 @@ const GridItem = ({
                 (row + 1) % 3 ? '' : 'border-b-4'
             }
             ${(col + 1) % 3 ? '' : 'border-r-4'}
+            ${isInvalid && 'bg-rose-200'}
             `}
             value={inputValue !== 0 ? inputValue : ''}
             role="input-item"

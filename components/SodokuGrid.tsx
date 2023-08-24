@@ -21,6 +21,7 @@ const SodokuGrid = (): JSX.Element => {
     }>();
     const [message, setMessage] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [invalidIndex, setInvalidIndex] = useState<number[]>([]);
 
     /**
      * Fetches a sodoku puzzle from the server.
@@ -59,9 +60,9 @@ const SodokuGrid = (): JSX.Element => {
             activeGridItem;
         // Runs check for valid input if value is not 0
         if (value && sodoku.isValidMove(solutionGrid, row, col, value)) {
-            console.log(true);
+            setInvalidIndex([]);
         } else {
-            console.log(false);
+            setInvalidIndex([row, col]);
         }
         setSolutionGrid((grid: SodokuGrid): SodokuGrid => {
             const updatedGrid = grid.map((row) => [...row]);
@@ -164,7 +165,12 @@ const SodokuGrid = (): JSX.Element => {
                                                             columnIndex
                                                         ] !== 0
                                                     }
-                                                    // setSolutionGrid={setSolutionGrid}
+                                                    isInvalid={
+                                                        invalidIndex[0] ==
+                                                            rowIndex &&
+                                                        invalidIndex[1] ==
+                                                            columnIndex
+                                                    }
                                                     setActiveGridItem={
                                                         setActiveGridItem
                                                     }
