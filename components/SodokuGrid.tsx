@@ -78,6 +78,11 @@ const SodokuGrid = (): JSX.Element => {
         setSolutionGrid(initial);
     };
 
+    /**
+     * Solves the puzzle by calling the solving function and updating the solution grid.
+     *
+     * @returns This function does not return anything.
+     */
     const solvePuzzle = (): void => {
         // Add call to solving function
         const puzzleGrid = initialGrid.map((row) => [...row]);
@@ -85,11 +90,21 @@ const SodokuGrid = (): JSX.Element => {
         setSolutionGrid(solvedGrid);
     };
 
+    /**
+     * Checks the answer by calling the check answer function and logging the result.
+     *
+     * @returns This function does not return anything.
+     */
     const checkAnswer = (): void => {
         // Add call to check answer function
         console.log(sodoku.isValidGrid(solutionGrid));
     };
 
+    /**
+     * Retrieves the puzzle by calling the initialisePuzzle function.
+     *
+     * @returns This function does not return anything.
+     */
     const getPuzzle = (): void => {
         initialisePuzzle();
     };
@@ -124,9 +139,15 @@ const SodokuGrid = (): JSX.Element => {
             <button role="reset-button" onClick={resetPuzzle}>
                 Reset Puzzle
             </button>
-            <button onClick={solvePuzzle}>Solve</button>
-            <button onClick={checkAnswer}>Check Answer</button>
-            <button onClick={getPuzzle}>New Puzzle</button>
+            <button role="solve-puzzle" onClick={solvePuzzle}>
+                Solve
+            </button>
+            <button role="check-answer" onClick={checkAnswer}>
+                Check Answer
+            </button>
+            <button role="new-puzzle" onClick={getPuzzle}>
+                New Puzzle
+            </button>
         </>
     );
 };
