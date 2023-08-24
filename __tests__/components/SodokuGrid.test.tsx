@@ -100,7 +100,7 @@ describe('Sodoku Grid Component', () => {
         });
         const checkAnswer = screen.getByRole('check-answer');
         fireEvent.click(checkAnswer);
-        expect(message).toHaveTextContent('So far so good!');
+        expect(message).toHaveTextContent('All good!');
     });
 
     it('should return return false for invalid input', async () => {
