@@ -157,7 +157,7 @@ const SodokuGrid = (): JSX.Element => {
     const checkAnswer = (): void => {
         // Add call to check answer function
         const message: string = sodoku.isValidGrid(solutionGrid)
-            ? 'So far so good!'
+            ? 'All good!'
             : "Something's wrong!";
         updateMessage(message);
     };
@@ -260,7 +260,7 @@ const SodokuGrid = (): JSX.Element => {
                             className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md active:bg-indigo-700 focus:outline-none"
                             onClick={checkAnswer}
                         >
-                            Check Status
+                            Check Answer
                         </button>
                         <button
                             role="solve-puzzle"
