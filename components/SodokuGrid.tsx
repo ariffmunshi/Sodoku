@@ -19,6 +19,7 @@ const SodokuGrid = (): JSX.Element => {
         col: number;
         value: number;
     }>();
+    const [message, setMessage] = useState<string>('');
 
     /**
      * Fetches a sodoku puzzle from the server.
@@ -68,6 +69,18 @@ const SodokuGrid = (): JSX.Element => {
     }, [activeGridItem]);
 
     /**
+     * Updates the message and sets a timeout to clear it after 3 seconds.
+     * @param message - The new message to set.
+     * @returns void
+     */
+    const updateMessage = (message: string): void => {
+        setMessage(message);
+        setTimeout(() => {
+            setMessage('');
+        }, 3000);
+    };
+
+    /**
      * Resets the grid to its initial state.
      *
      * Copies original grid to solution grid.
@@ -75,6 +88,7 @@ const SodokuGrid = (): JSX.Element => {
      */
     const resetPuzzle = (): void => {
         const initial = initialGrid.map((row) => [...row]);
+        updateMessage('Puzzle reset');
         setSolutionGrid(initial);
     };
 
@@ -87,6 +101,7 @@ const SodokuGrid = (): JSX.Element => {
         // Add call to solving function
         const puzzleGrid = initialGrid.map((row) => [...row]);
         const solvedGrid = sodoku.solveSodoku(puzzleGrid);
+        updateMessage('There you go!');
         setSolutionGrid(solvedGrid);
     };
 
@@ -97,7 +112,10 @@ const SodokuGrid = (): JSX.Element => {
      */
     const checkAnswer = (): void => {
         // Add call to check answer function
-        console.log(sodoku.isValidGrid(solutionGrid));
+        const message: string = sodoku.isValidGrid(solutionGrid)
+            ? 'So far so good!'
+            : "Something's wrong!";
+        updateMessage(message);
     };
 
     /**
@@ -136,6 +154,13 @@ const SodokuGrid = (): JSX.Element => {
                     );
                 })}
             </div>
+            <p
+                className={`mt-5 text-gray-700 font-bold transition-opacity duration-500 ${
+                    message ? 'opacity-100' : 'opacity-0'
+                }`}
+            >
+                {message}
+            </p>
             <div className="flex flex-wrap justify-center">
                 <button
                     role="reset-button"
@@ -149,14 +174,14 @@ const SodokuGrid = (): JSX.Element => {
                     className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md active:bg-indigo-700 focus:outline-none"
                     onClick={checkAnswer}
                 >
-                    Check Answer
+                    Check Status
                 </button>
                 <button
                     role="solve-puzzle"
                     className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-emerald-600 text-white font-semibold rounded-lg shadow-md active:bg-emerald-700 focus:outline-none"
                     onClick={solvePuzzle}
                 >
-                    Solve
+                    Show Answer
                 </button>
                 <button
                     role="new-puzzle"
