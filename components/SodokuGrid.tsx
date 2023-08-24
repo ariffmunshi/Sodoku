@@ -22,6 +22,61 @@ const SodokuGrid = (): JSX.Element => {
     const [message, setMessage] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [invalidIndex, setInvalidIndex] = useState<number[]>([]);
+    const [activeArea, setActiveArea] = useState<{
+        row: number;
+        col: number;
+        square: number[][];
+    }>();
+
+    // Fetch puzzle string
+    useEffect(() => {
+        initialisePuzzle();
+    }, []);
+
+    useEffect(() => {
+        if (!activeGridItem) return;
+        const { row, col, value }: { row: number; col: number; value: number } =
+            activeGridItem;
+        let message: string = '';
+        let invalidArr: number[] = [];
+        // Runs check for valid input if value is not 0
+        if (value && sodoku.isValidMove(solutionGrid, row, col, value)) {
+            message = 'That works!';
+            invalidArr = [];
+        } else if (value) {
+            message = 'Invalid move!';
+            invalidArr = [row, col];
+        } else {
+            message = '';
+            invalidArr = [];
+        }
+        updateMessage(message);
+        updateActiveArea(row, col);
+        setInvalidIndex(invalidArr);
+        setSolutionGrid((grid: SodokuGrid): SodokuGrid => {
+            const updatedGrid = grid.map((row) => [...row]);
+            updatedGrid[row][col] = value || 0;
+            return updatedGrid;
+        });
+    }, [activeGridItem]);
+
+    const updateActiveArea = (row: number, col: number): void => {
+        const startRow: number = row - (row % 3);
+        const startCol: number = col - (col % 3);
+        const square: number[][] = [];
+        for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+            for (let colIndex = 0; colIndex < 3; colIndex++) {
+                const currentRow = startRow + rowIndex;
+                const currentCol = startCol + colIndex;
+                square.push([currentRow, currentCol]);
+            }
+        }
+        setActiveArea({
+            row,
+            col,
+            square,
+        });
+    };
 
     /**
      * Fetches a sodoku puzzle from the server.
@@ -49,32 +104,6 @@ const SodokuGrid = (): JSX.Element => {
         setSolutionGrid(gridCopy);
         setIsLoading(false);
     };
-    // Fetch puzzle string
-    useEffect(() => {
-        initialisePuzzle();
-    }, []);
-
-    useEffect(() => {
-        if (!activeGridItem) return;
-        const { row, col, value }: { row: number; col: number; value: number } =
-            activeGridItem;
-        // Runs check for valid input if value is not 0
-        if (value && sodoku.isValidMove(solutionGrid, row, col, value)) {
-            updateMessage('Keep it up!');
-            setInvalidIndex([]);
-        } else if (value) {
-            updateMessage('Invalid move!');
-            setInvalidIndex([row, col]);
-        } else {
-            updateMessage('');
-            setInvalidIndex([]);
-        }
-        setSolutionGrid((grid: SodokuGrid): SodokuGrid => {
-            const updatedGrid = grid.map((row) => [...row]);
-            updatedGrid[row][col] = value || 0;
-            return updatedGrid;
-        });
-    }, [activeGridItem]);
 
     /**
      * Updates the message and sets a timeout to clear it after 3 seconds.
@@ -96,7 +125,9 @@ const SodokuGrid = (): JSX.Element => {
      */
     const resetPuzzle = (): void => {
         const initial = initialGrid.map((row) => [...row]);
+        updateActiveArea(9, 9);
         updateMessage('Puzzle reset');
+        setInvalidIndex([]);
         setSolutionGrid(initial);
     };
 
@@ -176,10 +207,26 @@ const SodokuGrid = (): JSX.Element => {
                                                         ] !== 0
                                                     }
                                                     isInvalid={
-                                                        invalidIndex[0] ==
+                                                        invalidIndex[0] ===
                                                             rowIndex &&
-                                                        invalidIndex[1] ==
+                                                        invalidIndex[1] ===
                                                             columnIndex
+                                                    }
+                                                    isActive={
+                                                        activeArea?.row ===
+                                                            rowIndex ||
+                                                        activeArea?.col ===
+                                                            columnIndex ||
+                                                        activeArea?.square.some(
+                                                            (arr) => {
+                                                                return (
+                                                                    arr[0] ===
+                                                                        rowIndex &&
+                                                                    arr[1] ===
+                                                                        columnIndex
+                                                                );
+                                                            }
+                                                        )
                                                     }
                                                     setActiveGridItem={
                                                         setActiveGridItem

@@ -14,6 +14,7 @@ const GridItem = ({
     value,
     disabled,
     isInvalid,
+    isActive,
     setActiveGridItem,
 }: {
     row: number;
@@ -21,6 +22,7 @@ const GridItem = ({
     value: number;
     disabled: boolean;
     isInvalid: boolean;
+    isActive: boolean;
     setActiveGridItem: (gridItem: {
         row: number;
         col: number;
@@ -55,11 +57,12 @@ const GridItem = ({
         <input
             type="text"
             pattern="[1-9]"
-            className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-center border border-gray-600 p-2 bg-gray-100 focus:bg-white disabled:opacity-100 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-100 ${
+            className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-center border border-gray-600 p-2 bg-gray-200 focus:bg-white disabled:opacity-100 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-100 ${
                 (row + 1) % 3 ? '' : 'border-b-4'
             }
             ${(col + 1) % 3 ? '' : 'border-r-4'}
             ${isInvalid && 'bg-rose-200'}
+            ${isActive && 'ring-2 ring-white ring-opacity-100 ring-inset'}
             `}
             value={inputValue !== 0 ? inputValue : ''}
             role="input-item"
@@ -70,6 +73,3 @@ const GridItem = ({
 };
 
 export default GridItem;
-// border-4 bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-800 focus:ring-offset-2 p-2 disabled:opacity-80 disabled:bg-gray-700 disabled:cursor-not-allowed disabled:text-white ${
-//     (row + 1) % 3 ? '' : 'border-b-4 border-gray-600'
-// }
