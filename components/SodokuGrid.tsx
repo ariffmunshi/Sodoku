@@ -111,7 +111,7 @@ const SodokuGrid = (): JSX.Element => {
 
     return (
         <>
-            <div className="grid grid-cols-9">
+            <div className="grid grid-cols-9 w-max mt-5 border-t-4 border-l-4 border-r-2 border-b-2 border-gray-600">
                 {solutionGrid.map((row: number[], rowIndex: number) => {
                     return (
                         <Fragment key={rowIndex}>
@@ -136,18 +136,36 @@ const SodokuGrid = (): JSX.Element => {
                     );
                 })}
             </div>
-            <button role="reset-button" onClick={resetPuzzle}>
-                Reset Puzzle
-            </button>
-            <button role="solve-puzzle" onClick={solvePuzzle}>
-                Solve
-            </button>
-            <button role="check-answer" onClick={checkAnswer}>
-                Check Answer
-            </button>
-            <button role="new-puzzle" onClick={getPuzzle}>
-                New Puzzle
-            </button>
+            <div className="flex my-5">
+                <button
+                    role="reset-button"
+                    className="mx-4 py-2 px-4 bg-rose-600 text-white font-semibold rounded-lg shadow-md active:bg-rose-700 focus:outline-none"
+                    onClick={resetPuzzle}
+                >
+                    Reset Puzzle
+                </button>
+                <button
+                    role="check-answer"
+                    className="mx-4 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md active:bg-indigo-700 focus:outline-none"
+                    onClick={checkAnswer}
+                >
+                    Check Answer
+                </button>
+                <button
+                    role="solve-puzzle"
+                    className="mx-4 py-2 px-4 bg-emerald-600 text-white font-semibold rounded-lg shadow-md active:bg-emerald-700 focus:outline-none"
+                    onClick={solvePuzzle}
+                >
+                    Solve
+                </button>
+                <button
+                    role="new-puzzle"
+                    className="mx-4 py-2 px-4 bg-cyan-600 text-white font-semibold rounded-lg shadow-md active:bg-cyan-700 focus:outline-none"
+                    onClick={getPuzzle}
+                >
+                    New Puzzle
+                </button>
+            </div>
         </>
     );
 };

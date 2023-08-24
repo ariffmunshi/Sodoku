@@ -53,7 +53,11 @@ const GridItem = ({
         <input
             type="text"
             pattern="[1-9]"
-            className="grid-item"
+            className={`flex items-center justify-center w-16 h-16 text-center border border-gray-600 p-2 bg-gray-100 focus:bg-white disabled:opacity-100 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-100 ${
+                (row + 1) % 3 ? '' : 'border-b-4'
+            }
+            ${(col + 1) % 3 ? '' : 'border-r-4'}
+            `}
             value={inputValue !== 0 ? inputValue : ''}
             role="input-item"
             disabled={disabled}
@@ -63,3 +67,6 @@ const GridItem = ({
 };
 
 export default GridItem;
+// border-4 bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-800 focus:ring-offset-2 p-2 disabled:opacity-80 disabled:bg-gray-700 disabled:cursor-not-allowed disabled:text-white ${
+//     (row + 1) % 3 ? '' : 'border-b-4 border-gray-600'
+// }
