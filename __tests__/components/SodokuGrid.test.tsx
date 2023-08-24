@@ -88,4 +88,32 @@ describe('Sodoku Grid Component', () => {
         const gridEntries = gridInputs.map((ele) => +ele.value);
         expect(gridEntries).toEqual(gridSolution.flat());
     });
+
+    it('should return return true for valid input', async () => {
+        render(<SodokuGrid />);
+        const gridInputs = await waitFor(() => screen.getAllByDisplayValue(''));
+        const message = screen.getByRole('message');
+        fireEvent.change(gridInputs[0], {
+            target: {
+                value: '7',
+            },
+        });
+        const checkAnswer = screen.getByRole('check-answer');
+        fireEvent.click(checkAnswer);
+        expect(message).toHaveTextContent('So far so good!');
+    });
+
+    it('should return return false for invalid input', async () => {
+        render(<SodokuGrid />);
+        const gridInputs = await waitFor(() => screen.getAllByDisplayValue(''));
+        const message = screen.getByRole('message');
+        fireEvent.change(gridInputs[0], {
+            target: {
+                value: '5',
+            },
+        });
+        const checkAnswer = screen.getByRole('check-answer');
+        fireEvent.click(checkAnswer);
+        expect(message).toHaveTextContent("Something's wrong!");
+    });
 });

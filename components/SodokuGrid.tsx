@@ -132,7 +132,10 @@ const SodokuGrid = (): JSX.Element => {
     return (
         <>
             {isLoading ? (
-                <h2 className="text-center text-2xl text-gray-500 font-bold mt-40">
+                <h2
+                    role="sub-heading"
+                    className="text-center text-2xl text-gray-500 font-bold mt-40"
+                >
                     Loading...
                 </h2>
             ) : (
@@ -174,6 +177,7 @@ const SodokuGrid = (): JSX.Element => {
                         })}
                     </div>
                     <p
+                        role="message"
                         className={`mt-5 text-gray-700 font-bold transition-opacity duration-500 ${
                             message ? 'opacity-100' : 'opacity-0'
                         }`}
