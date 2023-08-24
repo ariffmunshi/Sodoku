@@ -20,6 +20,7 @@ const SodokuGrid = (): JSX.Element => {
         value: number;
     }>();
     const [message, setMessage] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     /**
      * Fetches a sodoku puzzle from the server.
@@ -45,6 +46,7 @@ const SodokuGrid = (): JSX.Element => {
         const gridCopy: SodokuGrid = grid.map((row) => [...row]);
         setInitialGrid(grid);
         setSolutionGrid(gridCopy);
+        setIsLoading(false);
     };
     // Fetch puzzle string
     useEffect(() => {
@@ -70,7 +72,7 @@ const SodokuGrid = (): JSX.Element => {
 
     /**
      * Updates the message and sets a timeout to clear it after 3 seconds.
-     * @param message - The new message to set.
+     * message - The new message to set.
      * @returns void
      */
     const updateMessage = (message: string): void => {
@@ -129,68 +131,87 @@ const SodokuGrid = (): JSX.Element => {
 
     return (
         <>
-            <div className="grid grid-cols-9 w-max mt-5 border-t-4 border-l-4 border-r-2 border-b-2 border-gray-600">
-                {solutionGrid.map((row: number[], rowIndex: number) => {
-                    return (
-                        <Fragment key={rowIndex}>
-                            {row.map((value: number, columnIndex: number) => {
-                                return (
-                                    <GridItem
-                                        key={rowIndex + '-' + columnIndex}
-                                        row={rowIndex}
-                                        col={columnIndex}
-                                        value={value}
-                                        disabled={
-                                            initialGrid[rowIndex][
-                                                columnIndex
-                                            ] !== 0
+            {isLoading ? (
+                <h2 className="text-center text-2xl text-gray-500 font-bold mt-40">
+                    Loading...
+                </h2>
+            ) : (
+                <>
+                    <div className="grid grid-cols-9 w-max mt-5 border-t-4 border-l-4 border-r-2 border-b-2 border-gray-600">
+                        {solutionGrid.map((row: number[], rowIndex: number) => {
+                            return (
+                                <Fragment key={rowIndex}>
+                                    {row.map(
+                                        (
+                                            value: number,
+                                            columnIndex: number
+                                        ) => {
+                                            return (
+                                                <GridItem
+                                                    key={
+                                                        rowIndex +
+                                                        '-' +
+                                                        columnIndex
+                                                    }
+                                                    row={rowIndex}
+                                                    col={columnIndex}
+                                                    value={value}
+                                                    disabled={
+                                                        initialGrid[rowIndex][
+                                                            columnIndex
+                                                        ] !== 0
+                                                    }
+                                                    // setSolutionGrid={setSolutionGrid}
+                                                    setActiveGridItem={
+                                                        setActiveGridItem
+                                                    }
+                                                />
+                                            );
                                         }
-                                        // setSolutionGrid={setSolutionGrid}
-                                        setActiveGridItem={setActiveGridItem}
-                                    />
-                                );
-                            })}
-                        </Fragment>
-                    );
-                })}
-            </div>
-            <p
-                className={`mt-5 text-gray-700 font-bold transition-opacity duration-500 ${
-                    message ? 'opacity-100' : 'opacity-0'
-                }`}
-            >
-                {message}
-            </p>
-            <div className="flex flex-wrap justify-center">
-                <button
-                    role="reset-button"
-                    className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-rose-600 text-white font-semibold rounded-lg shadow-md active:bg-rose-700 focus:outline-none"
-                    onClick={resetPuzzle}
-                >
-                    Reset Puzzle
-                </button>
-                <button
-                    role="check-answer"
-                    className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md active:bg-indigo-700 focus:outline-none"
-                    onClick={checkAnswer}
-                >
-                    Check Status
-                </button>
-                <button
-                    role="solve-puzzle"
-                    className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-emerald-600 text-white font-semibold rounded-lg shadow-md active:bg-emerald-700 focus:outline-none"
-                    onClick={solvePuzzle}
-                >
-                    Show Answer
-                </button>
-                <button
-                    role="new-puzzle"
-                    className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-cyan-600 text-white font-semibold rounded-lg shadow-md active:bg-cyan-700 focus:outline-none"
-                    onClick={getPuzzle}
-                >
-                    New Puzzle
-                </button>
-            </div>
+                                    )}
+                                </Fragment>
+                            );
+                        })}
+                    </div>
+                    <p
+                        className={`mt-5 text-gray-700 font-bold transition-opacity duration-500 ${
+                            message ? 'opacity-100' : 'opacity-0'
+                        }`}
+                    >
+                        {message}
+                    </p>
+                    <div className="flex flex-wrap justify-center">
+                        <button
+                            role="reset-button"
+                            className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-rose-600 text-white font-semibold rounded-lg shadow-md active:bg-rose-700 focus:outline-none"
+                            onClick={resetPuzzle}
+                        >
+                            Reset Puzzle
+                        </button>
+                        <button
+                            role="check-answer"
+                            className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md active:bg-indigo-700 focus:outline-none"
+                            onClick={checkAnswer}
+                        >
+                            Check Status
+                        </button>
+                        <button
+                            role="solve-puzzle"
+                            className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-emerald-600 text-white font-semibold rounded-lg shadow-md active:bg-emerald-700 focus:outline-none"
+                            onClick={solvePuzzle}
+                        >
+                            Show Answer
+                        </button>
+                        <button
+                            role="new-puzzle"
+                            className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-cyan-600 text-white font-semibold rounded-lg shadow-md active:bg-cyan-700 focus:outline-none"
+                            onClick={getPuzzle}
+                        >
+                            New Puzzle
+                        </button>
+                    </div>
+                </>
+            )}
         </>
     );
 };
