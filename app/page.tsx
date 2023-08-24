@@ -8,8 +8,8 @@ import SodokuGrid from '@/components/SodokuGrid';
 
 const Home: React.FC = () => {
     return (
-        <main className="w-full max-w-full flex flex-col items-center bg-gray-100">
-            <h1 className="text-center text-5xl text-blue-gray-800 font-black uppercase tracking-wide mt-10 ">
+        <main className="w-full max-w-full flex flex-col items-center">
+            <h1 className="text-center text-5xl text-gray-700 font-black uppercase tracking-wide">
                 Sodoku
             </h1>
             <SodokuGrid />

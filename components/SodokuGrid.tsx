@@ -136,31 +136,31 @@ const SodokuGrid = (): JSX.Element => {
                     );
                 })}
             </div>
-            <div className="flex my-5">
+            <div className="flex flex-wrap justify-center">
                 <button
                     role="reset-button"
-                    className="mx-4 py-2 px-4 bg-rose-600 text-white font-semibold rounded-lg shadow-md active:bg-rose-700 focus:outline-none"
+                    className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-rose-600 text-white font-semibold rounded-lg shadow-md active:bg-rose-700 focus:outline-none"
                     onClick={resetPuzzle}
                 >
                     Reset Puzzle
                 </button>
                 <button
                     role="check-answer"
-                    className="mx-4 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md active:bg-indigo-700 focus:outline-none"
+                    className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md active:bg-indigo-700 focus:outline-none"
                     onClick={checkAnswer}
                 >
                     Check Answer
                 </button>
                 <button
                     role="solve-puzzle"
-                    className="mx-4 py-2 px-4 bg-emerald-600 text-white font-semibold rounded-lg shadow-md active:bg-emerald-700 focus:outline-none"
+                    className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-emerald-600 text-white font-semibold rounded-lg shadow-md active:bg-emerald-700 focus:outline-none"
                     onClick={solvePuzzle}
                 >
                     Solve
                 </button>
                 <button
                     role="new-puzzle"
-                    className="mx-4 py-2 px-4 bg-cyan-600 text-white font-semibold rounded-lg shadow-md active:bg-cyan-700 focus:outline-none"
+                    className="mx-2 md:mx-4 mt-5 py-2 px-4 bg-cyan-600 text-white font-semibold rounded-lg shadow-md active:bg-cyan-700 focus:outline-none"
                     onClick={getPuzzle}
                 >
                     New Puzzle
