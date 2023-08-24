@@ -22,7 +22,7 @@ const GridItem = ({
     value: number;
     disabled: boolean;
     isInvalid: boolean;
-    isActive: boolean;
+    isActive: boolean | undefined;
     setActiveGridItem: (gridItem: {
         row: number;
         col: number;
