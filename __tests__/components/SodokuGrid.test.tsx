@@ -42,8 +42,8 @@ describe('Sodoku Grid Component', () => {
 
     it('disables grid items with initial numbers', async () => {
         render(<SodokuGrid />);
-        const gridItems = await waitFor(() =>
-            screen.getAllByRole('input-item')
+        const gridItems = await waitFor(
+            () => screen.getAllByRole('input-item') as HTMLInputElement[]
         );
         gridItems.forEach((item) => {
             if (item.value) {
@@ -54,8 +54,8 @@ describe('Sodoku Grid Component', () => {
 
     it('should not disable empty fields', async () => {
         render(<SodokuGrid />);
-        const gridItems = await waitFor(() =>
-            screen.getAllByRole('input-item')
+        const gridItems = await waitFor(
+            () => screen.getAllByRole('input-item') as HTMLInputElement[]
         );
         gridItems.forEach((item) => {
             if (item.value === '') {
@@ -80,8 +80,8 @@ describe('Sodoku Grid Component', () => {
 
     it('should return with a solution', async () => {
         render(<SodokuGrid />);
-        const gridInputs = await waitFor(() =>
-            screen.getAllByRole('input-item')
+        const gridInputs = await waitFor(
+            () => screen.getAllByRole('input-item') as HTMLInputElement[]
         );
         const solvePuzzle = screen.getByRole('solve-puzzle');
         fireEvent.click(solvePuzzle);
