@@ -1,7 +1,6 @@
 import supabase from '@/utils/supabaseDB';
-import type { NextRequest } from 'next/server';
 
-export const GET = async (req: NextRequest): Promise<Response> => {
+export const GET = async (): Promise<Response> => {
     try {
         const { data: puzzle } = await supabase
             .from('random_sodoku_puzzles')
