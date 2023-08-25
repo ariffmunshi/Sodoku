@@ -12,6 +12,7 @@ describe('Grid Item Component', () => {
                 value={0}
                 disabled={false}
                 isInvalid={false}
+                isActive={false}
                 setActiveGridItem={mockFunction}
             />
         );
@@ -33,6 +34,7 @@ describe('Grid Item Component', () => {
                 value={0}
                 disabled={false}
                 isInvalid={false}
+                isActive={false}
                 setActiveGridItem={mockFunction}
             />
         );
