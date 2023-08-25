@@ -84,7 +84,9 @@ const SodokuGrid = (): JSX.Element => {
      * @return A promise that resolves once the puzzle is fetched and the grid is initialized.
      */
     const fetchSodoku = async (): Promise<string> => {
-        const response: Response = await fetch('/api/puzzles');
+        const response: Response = await fetch('/api/puzzles', {
+            cache: 'no-store',
+        });
         const data: { puzzle: string } = await response.json();
         return data.puzzle;
     };
