@@ -7,7 +7,12 @@ export const GET = async (): Promise<Response> => {
             .select('puzzle')
             .limit(1)
             .single();
-        return new Response(JSON.stringify(puzzle), { status: 200 });
+        const headers = new Headers();
+        headers.set('Cache-Control', 'no-store');
+        return new Response(JSON.stringify(puzzle), {
+            status: 200,
+            headers: headers,
+        });
     } catch (error) {
         return new Response('Failed to fetch all prompts', { status: 500 });
     }
