@@ -170,6 +170,7 @@ const SodokuGrid = (): JSX.Element => {
      * @returns This function does not return anything.
      */
     const getPuzzle = (): void => {
+        updateMessage('Fetching puzzle...');
         initialisePuzzle();
     };
 
