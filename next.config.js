@@ -13,6 +13,7 @@ const nextConfig = {
             },
         ];
     },
+    'Cache-Control': ['no-cache', 'no-store', 'max-age=0', 'must-revalidate'],
 };
 
 module.exports = nextConfig;
