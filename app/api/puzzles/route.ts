@@ -1,4 +1,6 @@
 import supabase from '@/utils/supabaseDB';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const GET = async (): Promise<Response> => {
     try {
@@ -11,7 +13,7 @@ export const GET = async (): Promise<Response> => {
             status: 200,
             headers: {
                 'content-type': 'application/json',
-                'cache-control': 'no-store',
+                'cache-control': 'no-cache, no-store',
             },
         });
     } catch (error) {

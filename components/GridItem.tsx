@@ -57,7 +57,7 @@ const GridItem = ({
         <input
             type="text"
             pattern="[1-9]"
-            className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-center border border-gray-600 p-2 bg-gray-200 focus:bg-white disabled:opacity-100 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-100 ${
+            className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-center border border-gray-600 p-2 bg-gray-200 focus:bg-white focus:text-gray-700 disabled:opacity-100 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-100 ${
                 (row + 1) % 3 ? '' : 'border-b-4'
             }
             ${(col + 1) % 3 ? '' : 'border-r-4'}
